@@ -1,0 +1,389 @@
+/* ==========================================================================
+   1. CONFIGURAÇÕES GERAIS E VARIÁVEIS
+   ========================================================================== */
+:root {
+  /* Proporção padrão carta (aprox. 2.5 x 3.5) */
+  --card-width: 240px;
+  --card-height: 350px;
+  --card-radius: 16px;
+
+  /* Paleta base inspirada nas referências */
+  --bg-light: #EAE7E0;
+  --bg-dark: #0B0B0E;
+  --card-surface: #FFFFFF;
+  --accent-plum: #4A2538;
+  --accent-coral: #E85A3C;
+
+  /* Sombras flat em camadas */
+  --shadow-rest:
+    0 4px 10px rgba(0, 0, 0, 0.08),
+    0 14px 28px rgba(0, 0, 0, 0.12);
+  --shadow-hover:
+    0 16px 32px rgba(0, 0, 0, 0.16),
+    0 28px 56px rgba(0, 0, 0, 0.20);
+}
+
+/* Temas de fundo */
+body.theme-light {
+  --bg-color: var(--bg-light);
+  --text-color: #2B2623;
+  --muted-color: rgba(43, 38, 35, 0.55);
+}
+
+body.theme-dark {
+  --bg-color: var(--bg-dark);
+  --text-color: #F4F2ED;
+  --muted-color: rgba(244, 242, 237, 0.55);
+  --shadow-rest:
+    0 8px 20px rgba(0, 0, 0, 0.45),
+    0 18px 36px rgba(0, 0, 0, 0.55);
+  --shadow-hover:
+    0 20px 40px rgba(0, 0, 0, 0.65),
+    0 32px 64px rgba(0, 0, 0, 0.75);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  transition: background-color 0.4s ease;
+}
+
+/* ==========================================================================
+   2. PALCO E BARRA DE STATUS
+   ========================================================================== */
+.stage {
+  width: 100%;
+  max-width: 1100px;
+  min-height: 100vh;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  color: var(--muted-color);
+  transition: opacity 0.4s ease;
+}
+
+.status-bar.is-complete {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.counter {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  font-size: 0.75rem;
+}
+
+/* ==========================================================================
+   3. LEQUE E ESTRUTURA 3D DAS CARTAS
+   ========================================================================== */
+.deck-area {
+  position: relative;
+  width: 100%;
+  height: calc(var(--card-height) + 90px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1400px;
+}
+
+.card-slot {
+  position: absolute;
+  width: var(--card-width);
+  height: var(--card-height);
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  z-index: calc(10 + var(--index));
+
+  /* Posicionamento em leque */
+  transform:
+    translateX(var(--fan-x))
+    translateY(var(--fan-y))
+    rotate(var(--fan-rot));
+
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    z-index 0s;
+}
+
+/* Carta virada suaviza o ângulo para facilitar leitura */
+.card-slot.is-flipped {
+  transform:
+    translateX(var(--fan-x))
+    translateY(calc(var(--fan-y) - 6px))
+    rotate(calc(var(--fan-rot) * 0.45));
+}
+
+/* Hover: eleva a carta e traz para o topo */
+.card-slot:hover,
+.card-slot:focus-visible {
+  z-index: 50;
+  transform:
+    translateX(var(--fan-x))
+    translateY(calc(var(--fan-y) - 28px))
+    rotate(calc(var(--fan-rot) * 0.35))
+    scale(1.06);
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.75s cubic-bezier(0.34, 1.45, 0.64, 1);
+}
+
+.card-slot.is-flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background-color: var(--card-surface);
+  box-shadow: var(--shadow-rest);
+  transition: box-shadow 0.4s ease, filter 0.35s ease;
+}
+
+.card-slot:hover .card-face {
+  box-shadow: var(--shadow-hover);
+  filter: brightness(1.03);
+}
+
+.card-front {
+  transform: rotateY(180deg);
+}
+
+/* Garante que qualquer SVG ou IMG colado preencha a carta perfeitamente */
+.card-face > svg,
+.card-face > img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   4. ILUMINAÇÃO DINÂMICA NO HOVER (GLARE / SHEEN)
+   ========================================================================== */
+.card-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    circle 220px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.34),
+    rgba(255, 255, 255, 0.08) 45%,
+    transparent 75%
+  );
+  mix-blend-mode: soft-light;
+}
+
+.card-slot:hover .card-glare {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   5. PLACEHOLDERS TEMPORÁRIOS (REMOVER/SUBSTITUIR APÓS AS ARTES)
+   ========================================================================== */
+.placeholder-art {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px;
+}
+
+/* Placeholder do Verso inspirado no padrão geométrico flat */
+.placeholder-art--back {
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent-plum);
+  background-image:
+    radial-gradient(circle at 25% 25%, var(--accent-coral) 18%, transparent 19%),
+    radial-gradient(circle at 75% 75%, var(--accent-coral) 18%, transparent 19%),
+    linear-gradient(45deg, rgba(255, 255, 255, 0.08) 25%, transparent 25%);
+  background-size: 48px 48px;
+}
+
+.placeholder-art--back .placeholder-tag {
+  background: var(--card-surface);
+  color: var(--accent-plum);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* Placeholder da Frente com moldura flat */
+.placeholder-art--front {
+  border: 10px solid var(--accent-plum);
+  border-radius: var(--card-radius);
+  color: var(--accent-plum);
+  background: var(--card-surface);
+}
+
+.placeholder-corner {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.placeholder-corner.bottom-right {
+  align-self: flex-end;
+  transform: rotate(180deg);
+}
+
+.placeholder-center {
+  text-align: center;
+  border: 1.5px dashed rgba(74, 37, 56, 0.3);
+  border-radius: 10px;
+  padding: 1.25rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.placeholder-center .placeholder-tag {
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+
+.placeholder-center small {
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+/* ==========================================================================
+   6. ESPAÇO PARA ESTILOS INDIVIDUAIS DE CADA CARTA
+   ========================================================================== */
+/* Carta 01 */
+.card-back--01 {}
+.card-front--01 {}
+
+/* Carta 02 */
+.card-back--02 {}
+.card-front--02 {}
+
+/* Carta 03 */
+.card-back--03 {}
+.card-front--03 {}
+
+/* Carta 04 */
+.card-back--04 {}
+.card-front--04 {}
+
+/* Carta 05 */
+.card-back--05 {}
+.card-front--05 {}
+
+/* ==========================================================================
+   7. MENSAGEM FINAL ("FELIZ ANIVERSÁRIO, RIC!")
+   ========================================================================== */
+.final-message {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.final-message.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.final-message h1 {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.65rem;
+}
+
+.reset-btn {
+  background: transparent;
+  border: 1px solid var(--muted-color);
+  color: var(--muted-color);
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.reset-btn:hover {
+  color: var(--text-color);
+  border-color: var(--text-color);
+}
+
+/* ==========================================================================
+   8. RESPONSIVIDADE (MOBILE / TABLET)
+   ========================================================================== */
+@media (max-width: 768px) {
+  :root {
+    --card-width: 165px;
+    --card-height: 245px;
+    --card-radius: 12px;
+  }
+
+  .card-slot {
+    transform:
+      translateX(calc(var(--fan-x) * 0.45))
+      translateY(calc(var(--fan-y) * 0.75))
+      rotate(var(--fan-rot));
+  }
+
+  .card-slot.is-flipped {
+    transform:
+      translateX(calc(var(--fan-x) * 0.45))
+      translateY(calc(var(--fan-y) * 0.75 - 4px))
+      rotate(calc(var(--fan-rot) * 0.45));
+  }
+
+  .card-slot:hover,
+  .card-slot:focus-visible {
+    transform:
+      translateX(calc(var(--fan-x) * 0.45))
+      translateY(calc(var(--fan-y) * 0.75 - 18px))
+      rotate(calc(var(--fan-rot) * 0.35))
+      scale(1.06);
+  }
+}
