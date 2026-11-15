@@ -1,4 +1,4 @@
-#  — Feliz Aniversário, Ric!
+#  Feliz Aniversário, Ric!
 
 Uma experiência web interativa em formato de leque de cartas com estética **flat**, sombras suaves em camadas, iluminação dinâmica que acompanha o cursor e animação 3D ao clique para revelar uma mensagem especial de aniversário.
 
