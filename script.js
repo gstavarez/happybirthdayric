@@ -1,69 +1,102 @@
 document.addEventListener("DOMContentLoaded", () => {
   const cards = Array.from(document.querySelectorAll(".card-slot"));
   const counterEl = document.getElementById("counter");
-  const statusBar = document.querySelector(".status-bar");
-  const finalMessage = document.getElementById("finalMessage");
+  const hintTextEl = document.getElementById("hintText");
+  const finalMessageEl = document.getElementById("finalMessage");
   const resetBtn = document.getElementById("resetBtn");
+  const totalCards = cards.length; // 5 cartas
 
-  const revealedSet = new Set();
-  const totalCards = cards.length;
+  // Injeta o conteúdo dos SVGs no DOM quando hospedado (GitHub Pages),
+  // garantindo que imagens externas referenciadas dentro do SVG carreguem sem bloqueio.
+  async function inlineRepoSvgs() {
+    if (!window.location.protocol.startsWith("http")) return;
 
-  function updateProgress() {
-    counterEl.textContent = `${revealedSet.size} / ${totalCards}`;
+    const svgImgs = Array.from(document.querySelectorAll("img.card-svg"));
+    await Promise.all(
+      svgImgs.map(async (img, idx) => {
+        const src = img.getAttribute("src");
+        if (!src) return;
+        try {
+          const res = await fetch(src);
+          if (!res.ok) return;
+          const svgText = await res.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(svgText, "image/svg+xml");
+          const svgEl = doc.querySelector("svg");
+          if (!svgEl) return;
 
-    if (revealedSet.size === totalCards) {
-      statusBar.classList.add("is-complete");
-      finalMessage.classList.add("is-visible");
-      finalMessage.setAttribute("aria-hidden", "false");
+          // Evita conflito de IDs internos (máscaras/gradientes do Figma) entre os 5 versos
+          const prefix = `svg${idx}_`;
+          svgEl.querySelectorAll("[id]").forEach((el) => {
+            const oldId = el.id;
+            const newId = prefix + oldId;
+            el.id = newId;
+            svgEl.querySelectorAll("*").forEach((node) => {
+              Array.from(node.attributes).forEach((attr) => {
+                if (attr.value.includes(`#${oldId}`)) {
+                  attr.value = attr.value.replaceAll(`#${oldId}`, `#${newId}`);
+                }
+              });
+            });
+          });
+
+          svgEl.setAttribute("aria-hidden", "true");
+          img.replaceWith(svgEl);
+        } catch (_) {
+          // Mantém o <img> como fallback caso ocorra erro de rede
+        }
+      })
+    );
+  }
+
+  function updateStatus() {
+    const flippedCount = cards.filter((c) => c.classList.contains("is-flipped")).length;
+    counterEl.textContent = `${flippedCount} / ${totalCards}`;
+
+    if (flippedCount === totalCards) {
+      hintTextEl.textContent = "Todas as cartas foram reveladas!";
+      finalMessageEl.classList.add("is-visible");
+      finalMessageEl.setAttribute("aria-hidden", "false");
+    } else {
+      hintTextEl.textContent = "Clique nas cartas para revelar";
+      finalMessageEl.classList.remove("is-visible");
+      finalMessageEl.setAttribute("aria-hidden", "true");
     }
   }
 
-  function toggleCard(card, index) {
+  function toggleCard(card) {
     const isFlipped = card.classList.toggle("is-flipped");
     card.setAttribute("aria-pressed", String(isFlipped));
-
-    if (isFlipped) {
-      revealedSet.add(index);
-      updateProgress();
-    }
+    updateStatus();
   }
 
-  cards.forEach((card, index) => {
-    // Iluminação acompanha o cursor sobre a carta
-    card.addEventListener("mousemove", (event) => {
-      const rect = card.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / rect.width) * 100;
-      const y = ((event.clientY - rect.top) / rect.height) * 100;
+  cards.forEach((card) => {
+    card.addEventListener("click", () => toggleCard(card));
 
-      card.style.setProperty("--mouse-x", `${x.toFixed(1)}%`);
-      card.style.setProperty("--mouse-y", `${y.toFixed(1)}%`);
-    });
-
-    // Clique vira a carta
-    card.addEventListener("click", () => {
-      toggleCard(card, index);
-    });
-
-    // Acessibilidade via teclado (Enter ou Espaço)
-    card.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        toggleCard(card, index);
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggleCard(card);
       }
+    });
+
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty("--mx", `${x}%`);
+      card.style.setProperty("--my", `${y}%`);
     });
   });
 
-  // Botão para reiniciar o baralho
   resetBtn.addEventListener("click", () => {
-    revealedSet.clear();
     cards.forEach((card) => {
       card.classList.remove("is-flipped");
       card.setAttribute("aria-pressed", "false");
     });
-
-    statusBar.classList.remove("is-complete");
-    finalMessage.classList.remove("is-visible");
-    finalMessage.setAttribute("aria-hidden", "true");
-    counterEl.textContent = `0 / ${totalCards}`;
+    updateStatus();
   });
+
+  inlineRepoSvgs();
+  updateStatus();
 });
