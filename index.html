@@ -1,183 +1,164 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Para Ric</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cartas</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<!-- Troque "theme-light" por "theme-dark" se preferir fundo escuro -->
-<body class="theme-light">
+<body>
+  <main class="mesa-cartas">
 
-  <main class="stage">
-    <!-- Indicador discreto de progresso -->
-    <header class="status-bar">
-      <p class="hint-text" id="hintText">Clique nas cartas para revelar</p>
-      <span class="counter" id="counter">0 / 5</span>
-    </header>
-
-    <!-- Leque de Cartas -->
-    <section class="deck-area" aria-label="Baralho interativo">
-
-      <!-- ================================================================
-           CARTA 01
-           ================================================================ -->
-      <article class="card-slot" style="--index: 0; --fan-x: -220px; --fan-y: 26px; --fan-rot: -16deg;" tabindex="0" role="button" aria-pressed="false" aria-label="Carta 1">
-        <div class="card-inner">
-          <!-- VERSO DA CARTA 01 -->
-          <div class="card-face card-back card-back--01">
-            <!-- [PLACEHOLDER VERSO 01] Cole aqui seu SVG, <img> ou HTML -->
-            <div class="placeholder-art placeholder-art--back">
-              <span class="placeholder-tag">VERSO 01</span>
-            </div>
-            <div class="card-glare"></div>
-          </div>
-
-          <!-- FRENTE DA CARTA 01 -->
-          <div class="card-face card-front card-front--01">
-            <!-- [PLACEHOLDER FRENTE 01] Cole aqui seu SVG, <img> ou HTML -->
-            <div class="placeholder-art placeholder-art--front">
-              <span class="placeholder-corner top-left">01</span>
-              <div class="placeholder-center">
-                <span class="placeholder-tag">ARTE CARTA 01</span>
-                <small>Espaço reservado para ilustração</small>
-              </div>
-              <span class="placeholder-corner bottom-right">01</span>
-            </div>
-            <div class="card-glare"></div>
-          </div>
+    <!-- CARTA 1 -->
+    <div class="carta" onclick="this.classList.toggle('virada')">
+      <div class="carta-interna">
+        <div class="carta-face carta-verso">
+          <svg viewBox="0 0 434 646" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip-verso-1)">
+              <rect width="434" height="646" rx="20" fill="#3269B2"/>
+              <image href="verso.png" x="0" y="0" width="434" height="646" preserveAspectRatio="xMidYMid slice"/>
+            </g>
+            <rect x="2" y="2" width="430" height="642" rx="18" stroke="url(#grad-verso-1)" stroke-width="4"/>
+            <defs>
+              <linearGradient id="grad-verso-1" x1="0" y1="0" x2="434" y2="646" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FFFFFF" stop-opacity="0.85"/>
+                <stop offset="0.5" stop-color="#7AB8FF" stop-opacity="0.5"/>
+                <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.85"/>
+              </linearGradient>
+              <clipPath id="clip-verso-1">
+                <rect width="434" height="646" rx="20" fill="white"/>
+              </clipPath>
+            </defs>
+          </svg>
         </div>
-      </article>
 
-      <!-- ================================================================
-           CARTA 02
-           ================================================================ -->
-      <article class="card-slot" style="--index: 1; --fan-x: -110px; --fan-y: 8px; --fan-rot: -8deg;" tabindex="0" role="button" aria-pressed="false" aria-label="Carta 2">
-        <div class="card-inner">
-          <!-- VERSO DA CARTA 02 -->
-          <div class="card-face card-back card-back--02">
-            <!-- [PLACEHOLDER VERSO 02] Cole aqui seu SVG, <img> ou HTML -->
-            <div class="placeholder-art placeholder-art--back">
-              <span class="placeholder-tag">VERSO 02</span>
-            </div>
-            <div class="card-glare"></div>
-          </div>
-
-          <!-- FRENTE DA CARTA 02 -->
-          <div class="card-face card-front card-front--02">
-            <!-- [PLACEHOLDER FRENTE 02] Cole aqui seu SVG, <img> ou HTML -->
-            <div class="placeholder-art placeholder-art--front">
-              <span class="placeholder-corner top-left">02</span>
-              <div class="placeholder-center">
-                <span class="placeholder-tag">ARTE CARTA 02</span>
-                <small>Espaço reservado para ilustração</small>
-              </div>
-              <span class="placeholder-corner bottom-right">02</span>
-            </div>
-            <div class="card-glare"></div>
-          </div>
+        <div class="carta-face carta-frente">
+          <svg viewBox="0 0 434 646" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip-frente-1)">
+              <rect width="434" height="646" rx="20" fill="#3269B2"/>
+              <image href="imagem-carta1.png" x="0" y="0" width="434" height="646" preserveAspectRatio="xMidYMid slice"/>
+            </g>
+            <rect x="2" y="2" width="430" height="642" rx="18" stroke="url(#grad-frente-1)" stroke-width="4"/>
+            <defs>
+              <linearGradient id="grad-frente-1" x1="0" y1="0" x2="434" y2="646" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FFFFFF" stop-opacity="0.85"/>
+                <stop offset="0.5" stop-color="#7AB8FF" stop-opacity="0.5"/>
+                <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.85"/>
+              </linearGradient>
+              <clipPath id="clip-frente-1">
+                <rect width="434" height="646" rx="20" fill="white"/>
+              </clipPath>
+            </defs>
+          </svg>
         </div>
-      </article>
+      </div>
+    </div>
 
-      <!-- ================================================================
-           CARTA 03 (CENTRAL)
-           ================================================================ -->
-      <article class="card-slot" style="--index: 2; --fan-x: 0px; --fan-y: 0px; --fan-rot: 0deg;" tabindex="0" role="button" aria-pressed="false" aria-label="Carta 3">
-        <div class="card-inner">
-          <!-- VERSO DA CARTA 03 -->
-          <div class="card-face card-back card-back--03">
-            <!-- [PLACEHOLDER VERSO 03] Cole aqui seu SVG, <img> ou HTML -->
-            <div class="placeholder-art placeholder-art--back">
-              <span class="placeholder-tag">VERSO 03</span>
-            </div>
-            <div class="card-glare"></div>
-          </div>
-
-          <!-- FRENTE DA CARTA 03 -->
-          <div class="card-face card-front card-front--03">
-            <!-- [PLACEHOLDER FRENTE 03] Cole aqui seu SVG, <img> ou HTML -->
-            <div class="placeholder-art placeholder-art--front">
-              <span class="placeholder-corner top-left">03</span>
-              <div class="placeholder-center">
-                <span class="placeholder-tag">ARTE CARTA 03</span>
-                <small>Espaço reservado para ilustração</small>
-              </div>
-              <span class="placeholder-corner bottom-right">03</span>
-            </div>
-            <div class="card-glare"></div>
-          </div>
+    <!-- CARTA 2 -->
+    <div class="carta" onclick="this.classList.toggle('virada')">
+      <div class="carta-interna">
+        <div class="carta-face carta-verso">
+          <svg viewBox="0 0 434 646" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip-verso-2)">
+              <rect width="434" height="646" rx="20" fill="#3269B2"/>
+              <image href="verso.png" x="0" y="0" width="434" height="646" preserveAspectRatio="xMidYMid slice"/>
+            </g>
+            <rect x="2" y="2" width="430" height="642" rx="18" stroke="url(#grad-verso-2)" stroke-width="4"/>
+            <defs>
+              <linearGradient id="grad-verso-2" x1="0" y1="0" x2="434" y2="646" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FFFFFF" stop-opacity="0.85"/>
+                <stop offset="0.5" stop-color="#7AB8FF" stop-opacity="0.5"/>
+                <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.85"/>
+              </linearGradient>
+              <clipPath id="clip-verso-2">
+                <rect width="434" height="646" rx="20" fill="white"/>
+              </clipPath>
+            </defs>
+          </svg>
         </div>
-      </article>
 
-      <!-- ================================================================
-           CARTA 04
-           ================================================================ -->
-      <article class="card-slot" style="--index: 3; --fan-x: 110px; --fan-y: 8px; --fan-rot: 8deg;" tabindex="0" role="button" aria-pressed="false" aria-label="Carta 4">
-        <div class="card-inner">
-          <!-- VERSO DA CARTA 04 -->
-          <div class="card-face card-back card-back--04">
-            <!-- [PLACEHOLDER VERSO 04] Cole aqui seu SVG, <img> ou HTML -->
-            <div class="placeholder-art placeholder-art--back">
-              <span class="placeholder-tag">VERSO 04</span>
-            </div>
-            <div class="card-glare"></div>
-          </div>
-
-          <!-- FRENTE DA CARTA 04 -->
-          <div class="card-face card-front card-front--04">
-            <!-- [PLACEHOLDER FRENTE 04] Cole aqui seu SVG, <img> ou HTML -->
-            <div class="placeholder-art placeholder-art--front">
-              <span class="placeholder-corner top-left">04</span>
-              <div class="placeholder-center">
-                <span class="placeholder-tag">ARTE CARTA 04</span>
-                <small>Espaço reservado para ilustração</small>
-              </div>
-              <span class="placeholder-corner bottom-right">04</span>
-            </div>
-            <div class="card-glare"></div>
-          </div>
+        <div class="carta-face carta-frente">
+          <svg viewBox="0 0 434 646" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip-frente-2)">
+              <rect width="434" height="646" rx="20" fill="#3269B2"/>
+              <image href="imagem-carta2.png" x="0" y="0" width="434" height="646" preserveAspectRatio="xMidYMid slice"/>
+            </g>
+            <rect x="2" y="2" width="430" height="642" rx="18" stroke="url(#grad-frente-2)" stroke-width="4"/>
+            <defs>
+              <linearGradient id="grad-frente-2" x1="0" y1="0" x2="434" y2="646" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FFFFFF" stop-opacity="0.85"/>
+                <stop offset="0.5" stop-color="#7AB8FF" stop-opacity="0.5"/>
+                <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.85"/>
+              </linearGradient>
+              <clipPath id="clip-frente-2">
+                <rect width="434" height="646" rx="20" fill="white"/>
+              </clipPath>
+            </defs>
+          </svg>
         </div>
-      </article>
+      </div>
+    </div>
 
-      <!-- ================================================================
-           CARTA 05
-           ================================================================ -->
-      <article class="card-slot" style="--index: 4; --fan-x: 220px; --fan-y: 26px; --fan-rot: 16deg;" tabindex="0" role="button" aria-pressed="false" aria-label="Carta 5">
-        <div class="card-inner">
-          <!-- VERSO DA CARTA 05 -->
-          <div class="card-face card-back card-back--05">
-            <!-- [PLACEHOLDER VERSO 05] Cole aqui seu SVG, <img> ou HTML -->
-            <div class="placeholder-art placeholder-art--back">
-              <span class="placeholder-tag">VERSO 05</span>
-            </div>
-            <div class="card-glare"></div>
-          </div>
-
-          <!-- FRENTE DA CARTA 05 -->
-          <div class="card-face card-front card-front--05">
-            <!-- [PLACEHOLDER FRENTE 05] Cole aqui seu SVG, <img> ou HTML -->
-            <div class="placeholder-art placeholder-art--front">
-              <span class="placeholder-corner top-left">05</span>
-              <div class="placeholder-center">
-                <span class="placeholder-tag">ARTE CARTA 05</span>
-                <small>Espaço reservado para ilustração</small>
-              </div>
-              <span class="placeholder-corner bottom-right">05</span>
-            </div>
-            <div class="card-glare"></div>
-          </div>
+    <!-- CARTA 3 -->
+    <div class="carta" onclick="this.classList.toggle('virada')">
+      <div class="carta-interna">
+        <div class="carta-face carta-verso">
+          <svg viewBox="0 0 434 646" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip-verso-3)">
+              <rect width="434" height="646" rx="20" fill="#3269B2"/>
+              <image href="verso.png" x="0" y="0" width="434" height="646" preserveAspectRatio="xMidYMid slice"/>
+            </g>
+            <rect x="2" y="2" width="430" height="642" rx="18" stroke="url(#grad-verso-3)" stroke-width="4"/>
+            <defs>
+              <linearGradient id="grad-verso-3" x1="0" y1="0" x2="434" y2="646" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FFFFFF" stop-opacity="0.85"/>
+                <stop offset="0.5" stop-color="#7AB8FF" stop-opacity="0.5"/>
+                <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.85"/>
+              </linearGradient>
+              <clipPath id="clip-verso-3">
+                <rect width="434" height="646" rx="20" fill="white"/>
+              </clipPath>
+            </defs>
+          </svg>
         </div>
-      </article>
 
-    </section>
+        <div class="carta-face carta-frente">
+          <svg viewBox="0 0 434 646" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip-frente-3)">
+              <rect width="434" height="646" rx="20" fill="#3269B2"/>
+              <image href="imagem-carta3.png" x="0" y="0" width="434" height="646" preserveAspectRatio="xMidYMid slice"/>
+            </g>
+            <rect x="2" y="2" width="430" height="642" rx="18" stroke="url(#grad-frente-3)" stroke-width="4"/>
+            <defs>
+              <linearGradient id="grad-frente-3" x1="0" y1="0" x2="434" y2="646" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FFFFFF" stop-opacity="0.85"/>
+                <stop offset="0.5" stop-color="#7AB8FF" stop-opacity="0.5"/>
+                <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.85"/>
+              </linearGradient>
+              <clipPath id="clip-frente-3">
+                <rect width="434" height="646" rx="20" fill="white"/>
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+      </div>
+    </div>
 
-    <!-- Mensagem Final (aparece quando todas as cartas forem reveladas) -->
-    <footer class="final-message" id="finalMessage" aria-hidden="true">
-      <h1>Feliz aniversário, Ric!</h1>
-      <button type="button" class="reset-btn" id="resetBtn">Virar cartas novamente</button>
-    </footer>
-  </main>
-
-  <script src="script.js"></script>
-</body>
-</html>
+    <!-- CARTA 4 -->
+    <div class="carta" onclick="this.classList.toggle('virada')">
+      <div class="carta-interna">
+        <div class="carta-face carta-verso">
+          <svg viewBox="0 0 434 646" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip-verso-4)">
+              <rect width="434" height="646" rx="20" fill="#3269B2"/>
+              <image href="verso.png" x="0" y="0" width="434" height="646" preserveAspectRatio="xMidYMid slice"/>
+            </g>
+            <rect x="2" y="2" width="430" height="642" rx="18" stroke="url(#grad-verso-4)" stroke-width="4"/>
+            <defs>
+              <linearGradient id="grad-verso-4" x1="0" y1="0" x2="434" y2="646" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FFFFFF" stop-opacity="0.85"/>
+                <stop offset="0.5" stop-color="#7AB8FF" stop-opacity="0.5"/>
+                <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.85"/>
+              </linearGradient>
+              <clipPath id="clip-verso-4">
+                <rect width="434" height="
