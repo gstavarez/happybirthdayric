@@ -1,164 +1,135 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cartas</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para Ric</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <main class="mesa-cartas">
+<!-- Troque "theme-light" por "theme-dark" se preferir fundo escuro -->
+<body class="theme-light">
 
-    <!-- CARTA 1 -->
-    <div class="carta" onclick="this.classList.toggle('virada')">
-      <div class="carta-interna">
-        <div class="carta-face carta-verso">
-          <svg viewBox="0 0 434 646" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip-verso-1)">
-              <rect width="434" height="646" rx="20" fill="#3269B2"/>
-              <image href="verso.png" x="0" y="0" width="434" height="646" preserveAspectRatio="xMidYMid slice"/>
-            </g>
-            <rect x="2" y="2" width="430" height="642" rx="18" stroke="url(#grad-verso-1)" stroke-width="4"/>
-            <defs>
-              <linearGradient id="grad-verso-1" x1="0" y1="0" x2="434" y2="646" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FFFFFF" stop-opacity="0.85"/>
-                <stop offset="0.5" stop-color="#7AB8FF" stop-opacity="0.5"/>
-                <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.85"/>
-              </linearGradient>
-              <clipPath id="clip-verso-1">
-                <rect width="434" height="646" rx="20" fill="white"/>
-              </clipPath>
-            </defs>
-          </svg>
+  <main class="stage">
+    <header class="status-bar">
+      <p class="hint-text" id="hintText">Clique nas cartas para revelar</p>
+      <span class="counter" id="counter">0 / 5</span>
+    </header>
+
+    <section class="deck-area" aria-label="Baralho interativo">
+
+      <!-- ================================================================
+           CARTA 01
+           ================================================================ -->
+      <article class="card-slot" style="--index: 0; --fan-x: -220px; --fan-y: 26px; --fan-rot: -16deg;" tabindex="0" role="button" aria-pressed="false" aria-label="Carta 1">
+        <div class="card-inner">
+          <div class="card-face card-back card-back--01">
+            <div class="card-art">
+              <img src="verso.svg" alt="Verso da carta 1" class="card-svg" />
+            </div>
+            <div class="card-glare"></div>
+          </div>
+
+          <div class="card-face card-front card-front--01">
+            <div class="card-art">
+              <img src="carta1.svg" alt="Carta 1" class="card-svg" />
+            </div>
+            <div class="card-glare"></div>
+          </div>
         </div>
+      </article>
 
-        <div class="carta-face carta-frente">
-          <svg viewBox="0 0 434 646" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip-frente-1)">
-              <rect width="434" height="646" rx="20" fill="#3269B2"/>
-              <image href="imagem-carta1.png" x="0" y="0" width="434" height="646" preserveAspectRatio="xMidYMid slice"/>
-            </g>
-            <rect x="2" y="2" width="430" height="642" rx="18" stroke="url(#grad-frente-1)" stroke-width="4"/>
-            <defs>
-              <linearGradient id="grad-frente-1" x1="0" y1="0" x2="434" y2="646" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FFFFFF" stop-opacity="0.85"/>
-                <stop offset="0.5" stop-color="#7AB8FF" stop-opacity="0.5"/>
-                <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.85"/>
-              </linearGradient>
-              <clipPath id="clip-frente-1">
-                <rect width="434" height="646" rx="20" fill="white"/>
-              </clipPath>
-            </defs>
-          </svg>
+      <!-- ================================================================
+           CARTA 02
+           ================================================================ -->
+      <article class="card-slot" style="--index: 1; --fan-x: -110px; --fan-y: 8px; --fan-rot: -8deg;" tabindex="0" role="button" aria-pressed="false" aria-label="Carta 2">
+        <div class="card-inner">
+          <div class="card-face card-back card-back--02">
+            <div class="card-art">
+              <img src="verso.svg" alt="Verso da carta 2" class="card-svg" />
+            </div>
+            <div class="card-glare"></div>
+          </div>
+
+          <div class="card-face card-front card-front--02">
+            <div class="card-art">
+              <img src="carta2.svg" alt="Carta 2" class="card-svg" />
+            </div>
+            <div class="card-glare"></div>
+          </div>
         </div>
-      </div>
-    </div>
+      </article>
 
-    <!-- CARTA 2 -->
-    <div class="carta" onclick="this.classList.toggle('virada')">
-      <div class="carta-interna">
-        <div class="carta-face carta-verso">
-          <svg viewBox="0 0 434 646" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip-verso-2)">
-              <rect width="434" height="646" rx="20" fill="#3269B2"/>
-              <image href="verso.png" x="0" y="0" width="434" height="646" preserveAspectRatio="xMidYMid slice"/>
-            </g>
-            <rect x="2" y="2" width="430" height="642" rx="18" stroke="url(#grad-verso-2)" stroke-width="4"/>
-            <defs>
-              <linearGradient id="grad-verso-2" x1="0" y1="0" x2="434" y2="646" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FFFFFF" stop-opacity="0.85"/>
-                <stop offset="0.5" stop-color="#7AB8FF" stop-opacity="0.5"/>
-                <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.85"/>
-              </linearGradient>
-              <clipPath id="clip-verso-2">
-                <rect width="434" height="646" rx="20" fill="white"/>
-              </clipPath>
-            </defs>
-          </svg>
+      <!-- ================================================================
+           CARTA 03 (CENTRAL)
+           ================================================================ -->
+      <article class="card-slot" style="--index: 2; --fan-x: 0px; --fan-y: 0px; --fan-rot: 0deg;" tabindex="0" role="button" aria-pressed="false" aria-label="Carta 3">
+        <div class="card-inner">
+          <div class="card-face card-back card-back--03">
+            <div class="card-art">
+              <img src="verso.svg" alt="Verso da carta 3" class="card-svg" />
+            </div>
+            <div class="card-glare"></div>
+          </div>
+
+          <div class="card-face card-front card-front--03">
+            <div class="card-art">
+              <img src="carta3.svg" alt="Carta 3" class="card-svg" />
+            </div>
+            <div class="card-glare"></div>
+          </div>
         </div>
+      </article>
 
-        <div class="carta-face carta-frente">
-          <svg viewBox="0 0 434 646" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip-frente-2)">
-              <rect width="434" height="646" rx="20" fill="#3269B2"/>
-              <image href="imagem-carta2.png" x="0" y="0" width="434" height="646" preserveAspectRatio="xMidYMid slice"/>
-            </g>
-            <rect x="2" y="2" width="430" height="642" rx="18" stroke="url(#grad-frente-2)" stroke-width="4"/>
-            <defs>
-              <linearGradient id="grad-frente-2" x1="0" y1="0" x2="434" y2="646" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FFFFFF" stop-opacity="0.85"/>
-                <stop offset="0.5" stop-color="#7AB8FF" stop-opacity="0.5"/>
-                <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.85"/>
-              </linearGradient>
-              <clipPath id="clip-frente-2">
-                <rect width="434" height="646" rx="20" fill="white"/>
-              </clipPath>
-            </defs>
-          </svg>
+      <!-- ================================================================
+           CARTA 04
+           ================================================================ -->
+      <article class="card-slot" style="--index: 3; --fan-x: 110px; --fan-y: 8px; --fan-rot: 8deg;" tabindex="0" role="button" aria-pressed="false" aria-label="Carta 4">
+        <div class="card-inner">
+          <div class="card-face card-back card-back--04">
+            <div class="card-art">
+              <img src="verso.svg" alt="Verso da carta 4" class="card-svg" />
+            </div>
+            <div class="card-glare"></div>
+          </div>
+
+          <div class="card-face card-front card-front--04">
+            <div class="card-art">
+              <img src="carta4.svg" alt="Carta 4" class="card-svg" />
+            </div>
+            <div class="card-glare"></div>
+          </div>
         </div>
-      </div>
-    </div>
+      </article>
 
-    <!-- CARTA 3 -->
-    <div class="carta" onclick="this.classList.toggle('virada')">
-      <div class="carta-interna">
-        <div class="carta-face carta-verso">
-          <svg viewBox="0 0 434 646" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip-verso-3)">
-              <rect width="434" height="646" rx="20" fill="#3269B2"/>
-              <image href="verso.png" x="0" y="0" width="434" height="646" preserveAspectRatio="xMidYMid slice"/>
-            </g>
-            <rect x="2" y="2" width="430" height="642" rx="18" stroke="url(#grad-verso-3)" stroke-width="4"/>
-            <defs>
-              <linearGradient id="grad-verso-3" x1="0" y1="0" x2="434" y2="646" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FFFFFF" stop-opacity="0.85"/>
-                <stop offset="0.5" stop-color="#7AB8FF" stop-opacity="0.5"/>
-                <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.85"/>
-              </linearGradient>
-              <clipPath id="clip-verso-3">
-                <rect width="434" height="646" rx="20" fill="white"/>
-              </clipPath>
-            </defs>
-          </svg>
+      <!-- ================================================================
+           CARTA 05
+           ================================================================ -->
+      <article class="card-slot" style="--index: 4; --fan-x: 220px; --fan-y: 26px; --fan-rot: 16deg;" tabindex="0" role="button" aria-pressed="false" aria-label="Carta 5">
+        <div class="card-inner">
+          <div class="card-face card-back card-back--05">
+            <div class="card-art">
+              <img src="verso.svg" alt="Verso da carta 5" class="card-svg" />
+            </div>
+            <div class="card-glare"></div>
+          </div>
+
+          <div class="card-face card-front card-front--05">
+            <div class="card-art">
+              <img src="carta5.svg" alt="Carta 5" class="card-svg" />
+            </div>
+            <div class="card-glare"></div>
+          </div>
         </div>
+      </article>
 
-        <div class="carta-face carta-frente">
-          <svg viewBox="0 0 434 646" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip-frente-3)">
-              <rect width="434" height="646" rx="20" fill="#3269B2"/>
-              <image href="imagem-carta3.png" x="0" y="0" width="434" height="646" preserveAspectRatio="xMidYMid slice"/>
-            </g>
-            <rect x="2" y="2" width="430" height="642" rx="18" stroke="url(#grad-frente-3)" stroke-width="4"/>
-            <defs>
-              <linearGradient id="grad-frente-3" x1="0" y1="0" x2="434" y2="646" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FFFFFF" stop-opacity="0.85"/>
-                <stop offset="0.5" stop-color="#7AB8FF" stop-opacity="0.5"/>
-                <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.85"/>
-              </linearGradient>
-              <clipPath id="clip-frente-3">
-                <rect width="434" height="646" rx="20" fill="white"/>
-              </clipPath>
-            </defs>
-          </svg>
-        </div>
-      </div>
-    </div>
+    </section>
 
-    <!-- CARTA 4 -->
-    <div class="carta" onclick="this.classList.toggle('virada')">
-      <div class="carta-interna">
-        <div class="carta-face carta-verso">
-          <svg viewBox="0 0 434 646" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip-verso-4)">
-              <rect width="434" height="646" rx="20" fill="#3269B2"/>
-              <image href="verso.png" x="0" y="0" width="434" height="646" preserveAspectRatio="xMidYMid slice"/>
-            </g>
-            <rect x="2" y="2" width="430" height="642" rx="18" stroke="url(#grad-verso-4)" stroke-width="4"/>
-            <defs>
-              <linearGradient id="grad-verso-4" x1="0" y1="0" x2="434" y2="646" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FFFFFF" stop-opacity="0.85"/>
-                <stop offset="0.5" stop-color="#7AB8FF" stop-opacity="0.5"/>
-                <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.85"/>
-              </linearGradient>
-              <clipPath id="clip-verso-4">
-                <rect width="434" height="
+    <footer class="final-message" id="finalMessage" aria-hidden="true">
+      <h1>Feliz aniversário, Ric!</h1>
+      <button type="button" class="reset-btn" id="resetBtn">Virar cartas novamente</button>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
